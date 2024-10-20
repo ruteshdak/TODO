@@ -10,8 +10,8 @@ function App() {
   const [showFinished, setShowFinished] = useState(true);
 
   useEffect(() => {
-    // Fetch tasks from the deployed Render API
-    axios.get('https://todo-backend-8tzg.onrender.com/api/tasks')
+    // Fetch tasks from the API when the component mounts
+    axios.get('http://localhost:5000/api/tasks')
       .then(response => {
         setTodos(response.data);
       })
@@ -25,7 +25,7 @@ function App() {
   };
 
   const handleAdd = () => {
-    axios.post('https://todo-backend-8tzg.onrender.com/api/tasks', { todo })
+    axios.post('http://localhost:5000/api/tasks', { todo })
       .then(response => {
         setTodos([...todos, response.data]);
         setTodo(""); // Clear the input field
@@ -36,7 +36,7 @@ function App() {
   };
 
   const handleDelete = (id) => {
-    axios.delete(`https://todo-backend-8tzg.onrender.com/api/tasks/${id}`)
+    axios.delete(`http://localhost:5000/api/tasks/${id}`)
       .then(() => {
         setTodos(todos.filter(task => task._id !== id));
       })
@@ -53,7 +53,7 @@ function App() {
 
   const handleCheckbox = (id) => {
     const task = todos.find(task => task._id === id);
-    axios.put(`https://todo-backend-8tzg.onrender.com/api/tasks/${id}`, { isCompleted: !task.isCompleted })
+    axios.put(`http://localhost:5000/api/tasks/${id}`, { isCompleted: !task.isCompleted })
       .then(response => {
         const updatedTasks = todos.map(t => t._id === id ? response.data : t);
         setTodos(updatedTasks);
