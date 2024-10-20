@@ -73,14 +73,36 @@ function App() {
       <div className='container mx-auto rounded-xl my-5 bg-violet-200 p-5 min-h-[80vh]'>
         <div className='Add todo my-5'>
           <h2 className='text-xl font-bold'>Add Todo</h2>
-          <input type='text' onChange={handleChange} value={todo} className='w-700px' />
-          <button onClick={handleAdd} disabled={todo.length <= 3} className='bg-violet-800 hover:bg-violet-950 py-1 p-3 text-white rounded-md mx-4 font-bold disabled:bg-violet'>
-            Save
-          </button>
+          <div className="flex flex-col md:flex-row md:space-x-3">
+            <input 
+              type='text' 
+              onChange={handleChange} 
+              value={todo} 
+              className='w-full md:w-[700px] p-2 rounded border border-gray-300 focus:outline-none focus:border-violet-500' 
+            />
+            <button 
+              onClick={handleAdd} 
+              disabled={todo.length <= 3} 
+              className='mt-3 md:mt-0 bg-violet-800 hover:bg-violet-950 py-2 px-4 text-white rounded-md font-bold disabled:bg-violet'
+            >
+              Save
+            </button>
+          </div>
         </div>
         <h2 className='text-xl font-bold'>Your Todos</h2>
-        <input type='checkbox' checked={showFinished} onChange={toggleFinished} /> Show Finished
-        <TodoList todos={todos.filter(item => showFinished || !item.isCompleted)} handleEdit={handleEdit} handleDelete={handleDelete} handleCheckbox={handleCheckbox} />
+        <input 
+          type='checkbox' 
+          checked={showFinished} 
+          onChange={toggleFinished} 
+          className="mr-2"
+        />
+        <label>Show Finished</label>
+        <TodoList 
+          todos={todos.filter(item => showFinished || !item.isCompleted)} 
+          handleEdit={handleEdit} 
+          handleDelete={handleDelete} 
+          handleCheckbox={handleCheckbox} 
+        />
       </div>
     </>
   );
